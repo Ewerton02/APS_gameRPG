@@ -1,9 +1,12 @@
 public class Personagem {
+
+    // Atributos
     private String nome;
     private int energia;
     private int conscientizacao;
     private int poluicao;
 
+    // Construtores
     public Personagem(String nome) {
         this.nome = nome;
         this.energia = 100;
@@ -11,6 +14,7 @@ public class Personagem {
         this.poluicao = 20;
     }
 
+    // Getters e Setters
     public String getNome() {
         return nome;
     }
@@ -39,6 +43,7 @@ public class Personagem {
         poluicao = Math.max(0, Math.min(100, poluicao + valor));
     }
 
+    // Metodos
     public boolean estarVivo() {
         return energia > 0 && poluicao < 100;
     }
