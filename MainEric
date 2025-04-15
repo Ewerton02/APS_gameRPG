@@ -3,8 +3,10 @@ public class Main {
 //        Scanner s1 = new Scanner(System.in);
 //        Scanner s2 = new Scanner(System.in);
         FaseIncendio f5 = new FaseIncendio();
-        f5.conseguirApoio(true);
-        f5.combateAoIncendio(true);
-
+        f5.conseguirApoio(false);                //A primeira decisão da fase como true ou false
+        f5.combateAoIncendio(true);          //Segunda decisão da fase como true ou false
     }
 }
+// condição true false    vegetação restante mais de 80%
+// condição true true     vegetação restante menor de 80%
+// condição false false ou false true       queima total da vegetação
