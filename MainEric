@@ -1,0 +1,10 @@
+public class Main {
+    public static void main(String[] args) {
+//        Scanner s1 = new Scanner(System.in);
+//        Scanner s2 = new Scanner(System.in);
+        FaseIncendio f5 = new FaseIncendio();
+        f5.conseguirApoio(true);
+        f5.combateAoIncendio(true);
+
+    }
+}
