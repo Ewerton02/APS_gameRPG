@@ -4,12 +4,10 @@ public class FaseIncendio {
     private double k;
     private int turno;
     private int turnoi;
-    private int turnof;
-   // private boolean ajuda;
-   // private boolean renovavel;
 
     public void conseguirApoio(boolean ajuda){
-        turno=0;
+        turno=1;
+        System.out.println("Turno Atual: "+turno);
         System.out.println("Você foi informado que no há uma queimada em uma floresta nas proximidades da cidade " +
                 "\num incêndio. Devido aos acontecimentos recentes, há uma quantidade significativa de bombeiros" +
                 "\nincapacitados. Uma possível maneira de contornar este problema seria pedir ajuda de voluntários." +
@@ -38,19 +36,31 @@ public class FaseIncendio {
         else{
             turno=turno +1;
         }
-        System.out.println("turno: "+turno);
-        for ( turnoi=0; turnoi<=turno ; turnoi++) {
+        System.out.println("turno antes de ir apagar o incendio: "+turno);
+        for ( turnoi=turno; turnoi<=20 ; turnoi++) {
             vegetacao = -0.25 * turnoi * turnoi  + 100;
-            queimada = 0.25*turnoi*turnoi;
-            System.out.println("Estado da vegetação: "+vegetacao);
             System.out.println("Turnoi atual: "+turnoi);
-            System.out.println("Turno atual: "+turno);
-            for (turnof=6; turnof<=20;turnof++){
-                queimada = 0.25*turnof*turnof-(turnof-turnoi)*(turnof-turnoi)*(turnof-turnoi)*k;
-                System.out.println("Estado da vegetacao: "+vegetacao);
-                if (queimada<=0){
-                    break;
+            queimada = 0.25*turnoi*turnoi-(turnoi-turno)*(turnoi-turno)*(turnoi-turno)*k;
+            System.out.println("Estado da vegetacao: "+vegetacao);
+            System.out.println("'Poder de fogo': "+queimada);
+            if (queimada<=0) {
+                System.out.println("A queimada foi parada e a vegetação preservada foi de "+vegetacao);
+                if(vegetacao>=77) {
+                    System.out.println("Você conseguiu conter boa parte da flora e fauna ao redor da cidade. É provável" +
+                            "\n que a situação seja revertida e a área verde consiga se regenerar.");
                 }
+                else{
+                    System.out.println("Boa parte da área florestal perto da cidade foi destruida. É incerto se a região" +
+                            "\n se a região próxima da região será revertida.");
+                }
+                break;
+            }
+            if (vegetacao==0){
+                System.out.println("Infelizmente você não conseguiu apagar o incêndio na região florestal próxima à " +
+                        "\ncidade. Como consequência, muitos gases nocivos foram liberados, influenciando a qualidade+" +
+                        "\ndo ar da metrópole. Além disso, a flora e fauna próxima foram destruidas o que pode " +
+                        "\ncontribuir para a desertificação da cidade.");
+                break;
             }
         }
     }
