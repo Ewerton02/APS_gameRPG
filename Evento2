@@ -1,0 +1,47 @@
+public class FaseLimpeza {
+    private double limpeza;
+    private double ks;
+    private double kl;
+   // private int conscientizacao;
+    private int turno;
+    private double lixo;
+    private double resultado;
+
+    public FaseLimpeza(int conscientizacao){
+        System.out.println("Época de eleição. Periodo no qual muitos candidatos da metrópole estão ");
+        ks=0.6;
+        switch (conscientizacao){
+            case 1: //conscientização muito baixa
+                kl=100;
+                break;
+            case 2: //conscientização baixa
+                kl=250;
+                break;
+            case 3: //conscientização moderada
+                kl=500;
+                break;
+            case 4: //conscientização alta
+                kl=750;
+                break;
+            case 5: //conscientização muito alta
+                kl=1000;
+                break;
+        }
+        for (turno=0;turno<=10;turno++){
+            lixo=ks*Math.exp(turno);
+            System.out.println("Situação do lixo: "+lixo);
+        }
+    }
+    public void limpeza(){
+        for (turno=0;turno<=10;turno++){
+            limpeza=turno*kl;
+            System.out.println("Situação da limpeza: "+ limpeza);
+            resultado=lixo-limpeza;
+            System.out.println("Situação atual: "+resultado);
+            if (resultado<=0){
+                System.out.println("Turno da limpeza: " + turno);
+                break;
+            }
+        }
+    }
+}
