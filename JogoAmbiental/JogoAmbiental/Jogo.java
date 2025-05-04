@@ -166,34 +166,34 @@ public class Jogo {
     	));
     	
     	eventos.add(new Evento(
-    		    "A escola do bairro está organizando uma palestra sobre sustentabilidade.",
-    		    "Ir à palestra (+7 cons)", new int[]{-2, 7, -1},
-    		    "Não participar", new int[]{0, 0, 1}
-		));
+	    "A escola do bairro está organizando uma palestra sobre sustentabilidade.",
+	    "Ir à palestra (+7 cons)", new int[]{-2, 7, -1},
+	    "Não participar", new int[]{0, 0, 1}
+	));
 
-		eventos.add(new Evento(
-		    "Você nota que a calçada está tomada por entulho de obra.",
-		    "Denunciar para órgãos públicos (+6 cons)", new int[]{-1, 6, -3},
-		    "Deixar como está", new int[]{0, 0, 4}
-		));
+	eventos.add(new Evento(
+	    "Você nota que a calçada está tomada por entulho de obra.",
+	    "Denunciar para órgãos públicos (+6 cons)", new int[]{-1, 6, -3},
+	    "Deixar como está", new int[]{0, 0, 4}
+	));
 
-		eventos.add(new Evento(
-		    "No supermercado, há uma promoção de produtos a granel.",
-		    "Aproveitar e evitar embalagens (+5 cons)", new int[]{-1, 5, -2},
-		    "Comprar produtos embalados", new int[]{0, 0, 2}
-		));
+	eventos.add(new Evento(
+	    "No supermercado, há uma promoção de produtos a granel.",
+	    "Aproveitar e evitar embalagens (+5 cons)", new int[]{-1, 5, -2},
+	    "Comprar produtos embalados", new int[]{0, 0, 2}
+	));
 
-		eventos.add(new Evento(
-		    "Você encontra pilhas usadas jogadas em uma lixeira comum.",
-		    "Separar e levar ao ponto de coleta (+8 cons)", new int[]{-2, 8, -3},
-		    "Ignorar e seguir", new int[]{0, 0, 3}
-		));
+	eventos.add(new Evento(
+	    "Você encontra pilhas usadas jogadas em uma lixeira comum.",
+	    "Separar e levar ao ponto de coleta (+8 cons)", new int[]{-2, 8, -3},
+	    "Ignorar e seguir", new int[]{0, 0, 3}
+	));
 
-		eventos.add(new Evento(
-		    "Seu bairro organizou um mutirão de coleta de óleo de cozinha usado.",
-		    "Contribuir com o óleo usado de casa (+6 cons)", new int[]{-1, 6, -2},
-		    "Não participar", new int[]{0, 0, 2}
-		));
+	eventos.add(new Evento(
+	    "Seu bairro organizou um mutirão de coleta de óleo de cozinha usado.",
+	    "Contribuir com o óleo usado de casa (+6 cons)", new int[]{-1, 6, -2},
+	    "Não participar", new int[]{0, 0, 2}
+	));
 
     }
 }
