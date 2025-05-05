@@ -1,14 +1,50 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Collections;
+import java.util.*;
 
 public class Jogo {
+
+	// Atributos
     private Personagem jogador;
     private List<Evento> eventos;
 
+	// Metodo
     public void iniciar() {
+		// Mensagem inicial do jogo
         System.out.println("Bem-vindo ao EcoMetrópole RPG!");
-        jogador = new Personagem("Dollynho");
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Escolha o nome do personagem: (Sugestão: Dollynho)");
+		System.out.print("> ");
+		String nomePersonagem = scanner.nextLine();
+		jogador = new Personagem(nomePersonagem);
+		List<String> respostas = new ArrayList<>();
+		List<String> itens = new ArrayList<>(Arrays.asList("Mascara", "Energetico", "Medalha"));
+		int resisteciaPoluicao = 2;
+
+
+
+		//Blog
+		Post post = new Post();
+		criarPosts(post);
+
+		System.out.println("\n" + jogador.getNome() + " faz um post em seu blog: ");
+		System.out.println("-------------".repeat(3));
+		System.out.println("Título: " + post.getTitulo());
+		System.out.println("-------------".repeat(3));
+		System.out.println(post.getDescricao());
+		System.out.println("-------------".repeat(3));
+
+		//Tutorial
+		System.out.println("\nDepois de seu post, você vai fazer sua caminhada matinal como todos os dias,\n" +
+				"mas durante sua caminhada, voce se depara com diversas escolhas que precisa tomar.\n" +
+				"\nRegras:");
+		System.out.println("1 - Você começa com os seguintes atributos: Energia: 100 | Conscientização: 20 | Poluição: 20");
+		System.out.println("2 - Seu trabalho é lutar contra a poluição e não deixá-la chegar a 100 ou ela pode te matar.");
+		System.out.println("3 - Cada decisão importa, ou seja, afetará seus atributos e o seu final.");
+		System.out.println("4 - Eu vou saber caso suas interações com outros personagens sejam compostas por caracteres aleatórios.");
+		System.out.println("5 - Você precisa tomar as decisões corretas pelos próximos 5 dias.");
+		System.out.println("6 - Você pode escrever a palavra \"inventaio\" para ver seus itens.");
+
+
+		//Eventos
         criarEventos();
 
         Collections.shuffle(eventos);
@@ -20,6 +56,8 @@ public class Jogo {
 
             for (int i = 0; i < 5; i++) {
                 if (!jogador.estaVivo()) {
+					System.out.println("\"Passei acreditando que cada ação pudesse ajudar a construir um futuro melhor.\nAchava que, se eu conseguisse convencer uma pessoa, já estaria tornando o mundo um lugar mais justo, e que a razão sempre prevaleceria.\nMas, agora, doente, vejo rios poluídos, árvores caídas e ouço o silêncio onde antes havia esperança.\"");
+					System.out.println("Então me pergunto: foi tudo em vão?");
                     System.out.println("Você não resistiu aos impactos ambientais...");
                     return;
                 }
@@ -32,16 +70,45 @@ public class Jogo {
                 Evento e = eventos.get(eventoIndex);
                 e.apresentarEvento(jogador);
                 eventoIndex++;
+
             }
+
+			if (dia == 1) {
+				System.out.println(jogador.getNome() + " Chegou em casa e teve a notícia que o post viralizou e teve diversos comentários.");
+			}
+			System.out.println("Você decide responder um comentário que chamou sua atenção: ");
+			System.out.println(post.chooseComents(dia-1).toString());
+			String resposta = scanner.nextLine();
+			if (post.checkAnswer(resposta)) {
+				System.out.println("Voce fez um bom comentário");
+				jogador.mudarEnergia(-5);
+				jogador.mudarConscientizacao(5);
+				jogador.mostrarAtibutos();
+				if (dia <= 3) {
+					jogador.addItem(itens.get(dia-1));
+					System.out.println("Voce ganhou um item:" + itens.get(dia-1));
+				}
+
+
+			} else {
+				System.out.println("Comentário ruim.");
+				jogador.mudarEnergia(-5);
+				jogador.mudarConscientizacao(-5);
+				jogador.mudarPoluicao(5+resisteciaPoluicao);
+				jogador.mostrarAtibutos();
+			}
         }
 
         if (jogador.venceu()) {
+			System.out.print("\"Por tanto tempo, eu andei contra a corrente. Que vezes me chamaram de ingênuo, um sonhador, fora da casinha?\nUsei palavras, fiz coisas, tive paciência — não pra ganhar holofote, mas por viver, pela Terra chorando, em silêncio.\nAgora, vejo pela janela árvores no lugar da fumaça, água limpa onde só tinha lixo…\nAcredito, no fim, que tudo teve seu valor.\"");
             System.out.println("\nParabéns! Você sobreviveu e se tornou um exemplo ambiental!");
         } else {
+			System.out.print("\"Eu lutei pela Terra, falei em seu nome e convenci muitas pessoas. Mas só agora, depois de tudo, percebo que também fiz parte do problema.\nAcreditei que era suficiente plantar árvores e mover corações, mas ignorei as vezes em que escolhi o conforto em vez da coerência, \nou quando abandonei a busca para a complexidade do mundo, na esperança de encontrar respostas fáceis.\"");
             System.out.println("\nVocê sobreviveu, mas ainda falta muito para ser um cidadão consciente.");
         }
     }
-    
+
+	// Metodo
     private void criarEventos() {
         eventos = new ArrayList<>();
 
@@ -196,4 +263,18 @@ public class Jogo {
 	));
 
     }
+
+	private void criarPosts(Post post) {
+		post.setTitulo("Luta pela Poluição");
+		post.setDescricao("A gente compra produtos “verdes” embalados em plástico. Fala de sustentabilidade enquanto está voando para conferências sobre o clima.\n" +
+				"A gente defende o planeta nas redes sociais, mas acaba clicando em links que vendem conveniência disfarçada de avanço.\n" +
+				"A batalha contra a poluição é mais sutil do que parece. Ela se esconde por trás de slogans e boas intenções.\n" +
+				"Talvez o primeiro passo verdadeiro para enfrentá-la seja deixar de nos enxergar como os salvadores — e passar a nos ver como cúmplices desse problema.");
+		post.addToComents("Finalmente alguém disse o óbvio. Estamos todos envolvidos nisso.");
+		post.addToComents("Uma ideia interessante. Dá pra pensar mais sobre isso.");
+		post.addToComents("Mais um querendo pagar de herói do planeta. Tô fora.");
+		post.addToComents("Concordo com o tema, mas o jeito que vc fala parece arrogante.");
+		post.addToComents("Texto necessário. Difícil, mas verdadeiro.");
+
+	}
 }
