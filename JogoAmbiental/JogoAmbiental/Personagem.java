@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Personagem {
 
@@ -68,10 +69,58 @@ public class Personagem {
         if (inventario.size() > 0) {
             System.out.println("Inventario: ");
             for (int i=0; i < inventario.size(); i++) {
-                System.out.println((i + 1) + " - " + inventario.get(i));
+                System.out.println((i) + " - " + inventario.get(i));
             }
         } else {
             System.out.println("Seu inventário está vazio.");
         }
+    }
+
+    public void useItem(List<String> inventario) {
+        if (inventario.size() <= 0) {
+            return;
+        }
+        System.out.print("Escolha o número do seu item: \n>");
+        Scanner scanner = new Scanner(System.in);
+        int indexItem = scanner.nextInt();
+        try {
+            if (indexItem >= 0 && indexItem < inventario.size()) {
+
+                switch (inventario.get(indexItem)) {
+                    case "Mascara":
+                        mudarPoluicao(getPoluicao() - 5);
+                        System.out.println("Você usou a Mascara: - 5 Poluição");
+                        System.out.print("Sua resposta para a pergunta acima:\n>");
+                        break;
+
+                    case "Energético":
+                        mudarEnergia(getEnergia() + 5);
+                        System.out.println("Você usou o Energético: + 5 Energia");
+                        System.out.print("Sua resposta para a pergunta acima:\n>");
+                        break;
+
+                    case "Medalha":
+                        mudarConscientizacao(getConscientizacao() + 5);
+                        System.out.println("Você usou a Medalha: + 5 Conscientização");
+                        System.out.print("Sua resposta para a pergunta acima:\n>");
+                        break;
+
+                    default:
+                        System.out.println("Você digitou um número fora do seu inventário.");
+                        System.out.println("Você saiu do inventário.");
+                        break;
+
+                }
+
+                inventario.remove(indexItem);
+            } else {
+                System.out.println("Número inválido.");
+                System.out.println("Você saiu do inventário.");
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("Digite um número.");
+        }
+
     }
 }

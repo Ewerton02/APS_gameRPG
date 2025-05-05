@@ -16,9 +16,8 @@ public class Jogo {
 		String nomePersonagem = scanner.nextLine();
 		jogador = new Personagem(nomePersonagem);
 		List<String> respostas = new ArrayList<>();
-		List<String> itens = new ArrayList<>(Arrays.asList("Mascara", "Energetico", "Medalha"));
+		List<String> itens = new ArrayList<>(Arrays.asList("Mascara", "Energético", "Medalha"));
 		int resisteciaPoluicao = 2;
-
 
 
 		//Blog
@@ -41,7 +40,7 @@ public class Jogo {
 		System.out.println("3 - Cada decisão importa, ou seja, afetará seus atributos e o seu final.");
 		System.out.println("4 - Eu vou saber caso suas interações com outros personagens sejam compostas por caracteres aleatórios.");
 		System.out.println("5 - Você precisa tomar as decisões corretas pelos próximos 5 dias.");
-		System.out.println("6 - Você pode escrever a palavra \"inventaio\" para ver seus itens.");
+		System.out.println("6 - Você pode escrever a palavra \"inventário\" para usar e ver seus itens.");
 
 
 		//Eventos
@@ -68,19 +67,20 @@ public class Jogo {
                 }
 
                 Evento e = eventos.get(eventoIndex);
-                e.apresentarEvento(jogador);
+                e.apresentarEvento(jogador, jogador.getInventario());
                 eventoIndex++;
 
             }
 
 			if (dia == 1) {
-				System.out.println(jogador.getNome() + " Chegou em casa e teve a notícia que o post viralizou e teve diversos comentários.");
+				System.out.println(jogador.getNome() + " chegou em casa e teve a notícia que o post viralizou e teve diversos comentários.");
 			}
 			System.out.println("Você decide responder um comentário que chamou sua atenção: ");
 			System.out.println(post.chooseComents(dia-1).toString());
 			String resposta = scanner.nextLine();
+			respostas.add(resposta);
 			if (post.checkAnswer(resposta)) {
-				System.out.println("Voce fez um bom comentário");
+				System.out.println("Voce fez um bom comentário.");
 				jogador.mudarEnergia(-5);
 				jogador.mudarConscientizacao(5);
 				jogador.mostrarAtibutos();
@@ -106,6 +106,18 @@ public class Jogo {
 			System.out.print("\"Eu lutei pela Terra, falei em seu nome e convenci muitas pessoas. Mas só agora, depois de tudo, percebo que também fiz parte do problema.\nAcreditei que era suficiente plantar árvores e mover corações, mas ignorei as vezes em que escolhi o conforto em vez da coerência, \nou quando abandonei a busca para a complexidade do mundo, na esperança de encontrar respostas fáceis.\"");
             System.out.println("\nVocê sobreviveu, mas ainda falta muito para ser um cidadão consciente.");
         }
+
+		System.out.println("Todos os seus comentarios: ");
+		for (String resp : respostas) {
+			System.out.println("-------".repeat(3));
+			System.out.println(resp);
+
+
+		}
+
+		System.out.println("-------".repeat(3));
+		System.out.println("Itens obtidos: ");
+		jogador.showInventario();
     }
 
 	// Metodo

@@ -1,4 +1,5 @@
  import java.util.InputMismatchException;
+ import java.util.List;
  import java.util.Scanner;
 
 public class Evento {
@@ -25,7 +26,7 @@ public class Evento {
 
     // Metodo
     // Exibe as informações de cada evento
-    public void apresentarEvento(Personagem p) {
+    public void apresentarEvento(Personagem p, List<String> inventario) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n" + descricao);
         System.out.println("1 - " + opcao1);
@@ -46,9 +47,9 @@ public class Evento {
                     break;
                 } else if (escolha.equalsIgnoreCase("inventario")) {
                     p.showInventario();
-                    break;
-
-                } else {
+                    p.useItem(inventario);
+                }
+                else {
                     System.out.println("Infelizmente a poluição causou confusão no personagem, o que o levou a tomar a decisão errada.");
                     this.aplicarEfeitos(p, this.efeitosOpcao2);
                     break;
