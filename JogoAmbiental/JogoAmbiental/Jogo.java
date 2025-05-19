@@ -15,6 +15,8 @@ public class  Jogo {
         System.out.println("Escolha o nome do personagem: (Sugestão: Dollynho)");
         System.out.print("> ");
         String nomePersonagem = scanner.nextLine();
+
+        // Instancia os objetos
         jogador = new Personagem(nomePersonagem);
         adversario = new Personagem("Pennywise");
 
@@ -54,12 +56,15 @@ public class  Jogo {
 
         int eventoIndex = 0;
 
+        // Lógica de dias no jogo
         for (int dia = 1; dia <= 5; dia++) {
             System.out.println("\n Dia " + dia + ":");
 
             for (int i = 0; i < 5; i++) {
+
+                // Caso a poluiçao chegue a 100
                 if (!jogador.estaVivo()) {
-                    System.out.println("\"Passei acreditando que cada ação pudesse ajudar a construir um futuro melhor.\nAchava que, se eu conseguisse convencer uma pessoa, já estaria tornando o mundo um lugar mais justo, e que a razão sempre prevaleceria.\nMas, agora, doente, vejo rios poluídos, árvores caídas e ouço o silêncio onde antes havia esperança.\"");
+                    System.out.println(jogador.getNome() + ": \"Passei acreditando que cada ação pudesse ajudar a construir um futuro melhor.\nAchava que, se eu conseguisse convencer uma pessoa, já estaria tornando o mundo um lugar mais justo, e que a razão sempre prevaleceria.\nMas, agora, doente, vejo rios poluídos, árvores caídas e ouço o silêncio onde antes havia esperança.\"");
                     System.out.println("Então me pergunto: foi tudo em vão?");
                     System.out.println("Você não resistiu aos impactos ambientais...");
                     return;
@@ -85,6 +90,7 @@ public class  Jogo {
             String resposta = scanner.nextLine();
             respostas.add(resposta);
 
+            // Verifica se os comentários sao coerentes.
             if (post.checkAnswer(resposta)) {
                 System.out.println("Voce fez um bom comentário.");
                 jogador.mudarEnergia(-5);
@@ -92,11 +98,12 @@ public class  Jogo {
                 System.out.println("Os atributos de "+jogador.getNome()+" são:");
                 jogador.mostrarAtibutos();
                 System.out.println("Os atributos de Pennywise são: ");
-                adversario.setEnergia(adversario.getEnergia()-15);
-                adversario.setConscientizacao(adversario.getConscientizacao()+2*dia+3);
-                adversario.setPoluicao(adversario.getPoluicao()+2*dia+10);
+                adversario.mudarEnergia(15);
+                adversario.mudarConscientizacao(2*dia+3);
+                adversario.mudarPoluicao(2*dia+10);
                 adversario.mostrarAtibutos();
 
+                // Adiciona os itens ao inventário
                 if (dia <= 3) {
                     jogador.addItem(itens.get(dia-1));
                     System.out.println("Voce ganhou um item:" + itens.get(dia-1));
@@ -110,25 +117,27 @@ public class  Jogo {
                 jogador.mudarPoluicao(5+resisteciaPoluicao);
                 System.out.println("Os atributos de "+jogador.getNome()+" são:");
                 jogador.mostrarAtibutos();
-                adversario.setEnergia(adversario.getEnergia()-10);
-                adversario.setConscientizacao(adversario.getConscientizacao()+10);
-                adversario.setPoluicao(adversario.getPoluicao()-1);
+                adversario.mudarEnergia(-10);
+                adversario.mudarConscientizacao(10);
+                adversario.mudarPoluicao(-1);
                 System.out.println("Os atributos de Pennywise são: ");
                 adversario.mostrarAtibutos();
             }
         }
 
+        //Mensagem se o jogador vence e perde no final do jogo
         if ((jogador.venceu())&&jogador.getConscientizacao()>adversario.getConscientizacao() && jogador.getPoluicao()<adversario.getPoluicao() ){
-            System.out.print("\"Por tanto tempo, eu andei contra a corrente. Que vezes me chamaram de ingênuo, um sonhador, fora da casinha?\nUsei palavras, fiz coisas, tive paciência — não pra ganhar holofote, mas por viver, pela Terra chorando, em silêncio.\nAgora, vejo pela janela árvores no lugar da fumaça, água limpa onde só tinha lixo…\nAcredito, no fim, que tudo teve seu valor.\"");
+            System.out.print(jogador.getNome() + ": \"Por tanto tempo, eu andei contra a corrente. Que vezes me chamaram de ingênuo, um sonhador, fora da casinha?\nUsei palavras, fiz coisas, tive paciência — não pra ganhar holofote, mas por viver, pela Terra chorando, em silêncio.\nAgora, vejo pela janela árvores no lugar da fumaça, água limpa onde só tinha lixo…\nAcredito, no fim, que tudo teve seu valor.\"");
             System.out.println("\nAlém disso, consegui um desempenho melhor que meu adversário Pennywise.");
             System.out.println("\nParabéns! Você sobreviveu e se tornou um exemplo ambiental!");
 
         } else {
-            System.out.print("\"Eu lutei pela Terra, falei em seu nome e convenci muitas pessoas. Mas só agora, depois de tudo, percebo que também fiz parte do problema.\nAcreditei que era suficiente plantar árvores e mover corações, mas ignorei as vezes em que escolhi o conforto em vez da coerência, \nou quando abandonei a busca para a complexidade do mundo, na esperança de encontrar respostas fáceis.\"");
+            System.out.print(jogador.getNome() + ": \"Eu lutei pela Terra, falei em seu nome e convenci muitas pessoas. Mas só agora, depois de tudo, percebo que também fiz parte do problema.\nAcreditei que era suficiente plantar árvores e mover corações, mas ignorei as vezes em que escolhi o conforto em vez da coerência, \nou quando abandonei a busca para a complexidade do mundo, na esperança de encontrar respostas fáceis.\"");
             System.out.println("\nMesmo com um desempenho mediocre, Pennywise conseguiu fazer um trabalho melhor que o meu. Acho que o subestimei.");
             System.out.println("\nVocê sobreviveu, mas ainda falta muito para ser um cidadão consciente.");
         }
 
+        // Mensagem final do jogo
         System.out.println("Todos os seus comentarios: ");
         for (String resp : respostas) {
             System.out.println("-------".repeat(3));
@@ -138,8 +147,7 @@ public class  Jogo {
         }
 
         System.out.println("-------".repeat(3));
-        System.out.println("Itens obtidos: ");
-        jogador.showInventario();
+        jogador.showHistoricoInventario();
     }
 
     // Metodo
@@ -305,7 +313,7 @@ public class  Jogo {
                 "A batalha contra a poluição é mais sutil do que parece. Ela se esconde por trás de slogans e boas intenções.\n" +
                 "Talvez o primeiro passo verdadeiro para enfrentá-la seja deixar de nos enxergar como os salvadores — e passar a nos ver como cúmplices desse problema.");
         post.addToComents("Finalmente alguém está fazendo algo. Estamos todos envolvidos nisso.");
-        post.addToComents(jogador.getNome() + "está tomando atitudes sustentáveis. Mas será que é o suficiente?");
+        post.addToComents(jogador.getNome() + " está tomando atitudes sustentáveis. Mas será que é o suficiente?");
         post.addToComents("Mais um ambientalista querendo pagar de herói do planeta. Tô fora.");
         post.addToComents("Concordo as atitudes de " +jogador.getNome() +". Mas o jeito que ele fala e age parece arrogante.");
         post.addToComents("As atitudes de "+jogador.getNome()+" são necessárias. De difícil execução mas verdadeiras.");

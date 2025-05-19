@@ -13,24 +13,22 @@ public class Post {
     public Post() {
     }
 
-    public Post(String titulo, String descrição) {
+    // Sobrecarga do construtor
+    public Post(String titulo, String descricao) {
         this.titulo = titulo;
-        this.descricao = descrição;
+        this.descricao = descricao;
     }
 
     //Getters e Setters
     public String getTitulo() {
         return titulo;
     }
-
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-
     public String getDescricao() {
         return descricao;
     }
-
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
@@ -44,6 +42,7 @@ public class Post {
         return comentarios.get(index);
     }
 
+    // Verifica se o comentário possui preposição, conjunções e certas palavars chaves
     public boolean checkAnswer(String txt) {
 
         txt = txt.toLowerCase();

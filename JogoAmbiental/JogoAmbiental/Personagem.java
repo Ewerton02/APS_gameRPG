@@ -12,6 +12,8 @@ public class Personagem {
 
     private List<String> inventario = new ArrayList<>();
 
+    private List<String> historicoInventario = new ArrayList<>();
+
     // Construtor
     public Personagem(String nome) {
         this.nome = nome;
@@ -26,8 +28,9 @@ public class Personagem {
     public int getConscientizacao() { return conscientizacao; }
     public int getPoluicao() { return poluicao; }
     public List<String> getInventario() { return inventario; }
+    public List<String> getHistoricoInventario() { return historicoInventario; }
 
-    // Metodos
+
     public void mudarEnergia(int valor) {
         energia = Math.max(0, Math.min(100, energia + valor));
     }
@@ -40,6 +43,7 @@ public class Personagem {
         poluicao = Math.max(0, Math.min(100, poluicao + valor));
     }
 
+    // Metodos
     // Verifica se o personagem esta vivo
     public boolean estaVivo() {
         return energia > 0 && poluicao < 100;
@@ -62,6 +66,7 @@ public class Personagem {
     // Adiciona itens ao inventario
     public void addItem(String item) {
         inventario.add(item);
+        historicoInventario.add(item);
     }
 
     // Mostra o inventário
@@ -76,6 +81,17 @@ public class Personagem {
         }
     }
 
+    public void showHistoricoInventario() {
+        if (historicoInventario.size() > 0) {
+            System.out.println("Itens obtidos ao longo da história: ");
+            for (int i=0; i < historicoInventario.size(); i++) {
+                System.out.println((i) + " - " + historicoInventario.get(i));
+            }
+        } else {
+            System.out.println("Seu inventário está vazio.");
+        }
+    }
+
     public void useItem(List<String> inventario) {
         if (inventario.size() <= 0) {
             return;
@@ -83,6 +99,7 @@ public class Personagem {
         System.out.print("Escolha o número do seu item: \n>");
         Scanner scanner = new Scanner(System.in);
         int indexItem = scanner.nextInt();
+        // Tratando a exceção caso o jogador digite uma string
         try {
             if (indexItem >= 0 && indexItem < inventario.size()) {
 

@@ -21,8 +21,6 @@ public class Evento {
         this.efeitosOpcao2 = efeitos2;
     }
 
-    // Getter
-
 
     // Metodo
     // Exibe as informações de cada evento
@@ -37,7 +35,7 @@ public class Evento {
         while (true) {
             // Tratando a exceção caso o usuario digite uma string
             try {
-                // Usando int para funcionar tanto como inventaio, como numero
+                // Usando int para funcionar tanto como inventaio, como número
                 String escolha = scanner.nextLine();
                 if (escolha.equals("1")) {
                     this.aplicarEfeitos(p, this.efeitosOpcao1);
